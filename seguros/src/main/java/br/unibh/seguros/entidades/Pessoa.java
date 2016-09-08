@@ -28,6 +28,7 @@ public abstract class Pessoa {
 	private String email;
 	private Date dataNascimento;
 	private Date dataCadastro;
+	private Long version;
 	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf + ", telefoneComercial="

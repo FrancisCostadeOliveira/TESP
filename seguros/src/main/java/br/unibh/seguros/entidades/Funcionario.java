@@ -11,14 +11,14 @@ public class Funcionario extends Pessoa {
 				dataCadastro);
 		// TODO Auto-generated constructor stub
 	}
-	private String setor;
+	private Setor setor;
 	private String perfil;
 	private String login;
 	private String senha;
-	public String getSetor() {
+	public Setor getSetor() {
 		return setor;
 	}
-	public void setSetor(String setor) {
+	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
 	public String getPerfil() {

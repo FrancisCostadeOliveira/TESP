@@ -17,6 +17,7 @@ public class Setor {
 	private String sigla;
 	private Setor setorSuperior;
 	private Set<Funcionario> funcionarios;
+	private Long version;
 	@Override
 	public int hashCode() {
 		final int prime = 31;

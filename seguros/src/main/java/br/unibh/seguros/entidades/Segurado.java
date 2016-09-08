@@ -1,6 +1,7 @@
 package br.unibh.seguros.entidades;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Segurado extends Pessoa{
 	
@@ -209,6 +210,12 @@ public class Segurado extends Pessoa{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public Set<Proposta> getProposta() {
+		return proposta;
+	}
+	public void setProposta(Set<Proposta> proposta) {
+		this.proposta = proposta;
+	}
 	private String numeroHabilitacao;
 	private String tipoHabilitacao;
 	private Date dataValidadeHabilitacao;
@@ -220,5 +227,6 @@ public class Segurado extends Pessoa{
 	private String bairro;
 	private String cidade;
 	private String estado;
+	private Set<Proposta> proposta;
 
 }
