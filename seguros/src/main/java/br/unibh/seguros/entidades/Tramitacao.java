@@ -3,7 +3,16 @@ package br.unibh.seguros.entidades;
 import java.io.File;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+
+@Entity
+@table(name="tb_tramitacao")
+
 public class Tramitacao {
+	
+	@ID
+	@GeneratdValue(strategy=GenerationType.IDENTITY)
 	
 	private Long id;
 	private Proposta proposta;

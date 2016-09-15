@@ -1,6 +1,15 @@
 package br.unibh.seguros.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+
+@Entity
+@table(name="tb_veiculo")
+
 public class Veiculo {
+	
+	@ID
+	@GeneratdValue(strategy=GenerationType.IDENTITY)
 	
 	private Long id;
 	private String marca;

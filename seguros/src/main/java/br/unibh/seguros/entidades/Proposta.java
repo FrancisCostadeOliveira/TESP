@@ -4,8 +4,19 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tb_proposta")
+
 public class Proposta {
 	
+	@GeneratdValue(strategy=GenerationType.IDENTITY)
+	@ID
+	@PrimaryKeyJoinColumn 
 	private Long id;
 	private Date data;
 	private String classe;

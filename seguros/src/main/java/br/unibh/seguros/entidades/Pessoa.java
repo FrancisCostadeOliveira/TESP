@@ -2,7 +2,26 @@ package br.unibh.seguros.entidades;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+@table(name="tb_pessoa")
+@Inheritance(strategy = InheritanceType.JOINED)
+
+
+
+
 public abstract class Pessoa {
+	
+	@ID
+	@GeneratdValue(strategy=GenerationType.IDENTITY)
+	
+	
 	
 	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
 			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
@@ -18,6 +37,7 @@ public abstract class Pessoa {
 		this.dataNascimento = dataNascimento;
 		this.dataCadastro = dataCadastro;
 	}
+	@PrimaryKeyJoinColumn 
 	private Long id;
 	private String nome;
 	private String sexo;
@@ -30,6 +50,7 @@ public abstract class Pessoa {
 	private Date dataCadastro;
 	private Long version;
 	@Override
+	
 	public String toString() {
 		return "Pessoa [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf + ", telefoneComercial="
 				+ telefoneComercial + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular="

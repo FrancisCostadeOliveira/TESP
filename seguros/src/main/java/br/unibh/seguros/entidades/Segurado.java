@@ -3,6 +3,12 @@ package br.unibh.seguros.entidades;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Entity;
+
+@Entity
+@table(name="tb_segurado")
+
+
 public class Segurado extends Pessoa{
 	
 	public Segurado(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,

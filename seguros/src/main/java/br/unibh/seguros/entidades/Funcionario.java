@@ -2,6 +2,11 @@ package br.unibh.seguros.entidades;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+
+@Entity
+@table(name="tb_funcionario")
+
 public class Funcionario extends Pessoa {
 	
 	

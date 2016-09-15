@@ -2,7 +2,21 @@ package br.unibh.seguros.entidades;
 
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tb_setor")
+
 public class Setor {
+	
+	@ID
+	@GeneratdValue(strategy=GenerationType.IDENTITY)
+	
+	
 	
 	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
 		super();
@@ -12,6 +26,7 @@ public class Setor {
 		this.setorSuperior = setorSuperior;
 		this.funcionarios = funcionarios;
 	}
+	@PrimaryKeyJoinColumn
 	private Long id;
 	private String nome;
 	private String sigla;

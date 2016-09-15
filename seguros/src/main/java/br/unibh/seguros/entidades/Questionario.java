@@ -1,6 +1,15 @@
 package br.unibh.seguros.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+
+@Entity
+@table(name="tb_questionario")
+
 public class Questionario {
+	
+	@ID
+	@GeneratdValue(strategy=GenerationType.IDENTITY)
 	
 	private Long id;
 	private Boolean seguradoEPrincipalCondutor;
