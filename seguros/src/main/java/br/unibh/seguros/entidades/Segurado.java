@@ -3,10 +3,15 @@ package br.unibh.seguros.entidades;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @table(name="tb_segurado")
+
 
 
 public class Segurado extends Pessoa{
@@ -17,11 +22,53 @@ public class Segurado extends Pessoa{
 				dataCadastro);
 		// TODO Auto-generated constructor stub
 	}
+	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String classe;
+	
+	@Column (name="numero_rg", length = 10, nullable=false)
 	private String numeroRG;
+	
+	@Column (name="orgao_expedidor_rg", length = 50, nullable=false)
 	private String orgaoExpedidorRG;
-
-
+	
+	@Column (name="numero_habilitacao", length = 20, nullable=false) 
+	private String numeroHabilitacao;
+	
+	@Column (name="tipo_habilitacao", columnDefinition="CHAR(1)", nullable=false)
+	private String tipoHabilitacao;
+	
+	@Column (name="data_validade_habilitacao", nullable=false)
+	@Temporal (TemporalType.DATE)
+	private Date dataValidadeHabilitacao;
+	
+	@Column (name="data_primeira_habilitacao", nullable=false)
+	@Temporal (TemporalType.DATE)
+	private Date dataPrimeiraHabilitacao;
+	
+	@Column (length = 150, nullable=false)
+	private String logradouro;
+	
+	@Column (length = 30, nullable=false)
+	private String numero;
+	
+	@Column (length = 100, nullable=false)
+	private String complemento;
+	
+	@Column (columnDefinition="CHAR(10)", nullable=false)
+	private String cep;
+	
+	@Column (length = 50, nullable=false)
+	private String bairro;
+	
+	@Column (length = 100, nullable=false)
+	private String cidade;
+	
+	@Column (columnDefinition="CHAR(2)", nullable=false)
+	private String estado;
+	
+	@OneToOne
+	private Set<Proposta> proposta;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,7 +83,7 @@ public class Segurado extends Pessoa{
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-		result = prime * result + ((numeroHabilitacao == null) ? 0 : numeroHabilitacao.hashCode());
+		result = prime * result + (( == null) ? 0 : .hashCode());
 		result = prime * result + ((numeroRG == null) ? 0 : numeroRG.hashCode());
 		result = prime * result + ((orgaoExpedidorRG == null) ? 0 : orgaoExpedidorRG.hashCode());
 		result = prime * result + ((tipoHabilitacao == null) ? 0 : tipoHabilitacao.hashCode());
@@ -101,10 +148,10 @@ public class Segurado extends Pessoa{
 				return false;
 		} else if (!numero.equals(other.numero))
 			return false;
-		if (numeroHabilitacao == null) {
-			if (other.numeroHabilitacao != null)
+		if ( == null) {
+			if (other. != null)
 				return false;
-		} else if (!numeroHabilitacao.equals(other.numeroHabilitacao))
+		} else if (!.equals(other.))
 			return false;
 		if (numeroRG == null) {
 			if (other.numeroRG != null)
@@ -126,7 +173,7 @@ public class Segurado extends Pessoa{
 	@Override
 	public String toString() {
 		return "Segurado [classe=" + classe + ", numeroRG=" + numeroRG + ", orgaoExpedidorRG=" + orgaoExpedidorRG
-				+ ", numeroHabilitacao=" + numeroHabilitacao + ", tipoHabilitacao=" + tipoHabilitacao
+				+ ", numeroHabilitacao=" +  + ", tipoHabilitacao=" + tipoHabilitacao
 				+ ", dataValidadeHabilitacao=" + dataValidadeHabilitacao + ", dataPrimeiraHabilitacao="
 				+ dataPrimeiraHabilitacao + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento="
 				+ complemento + ", cep=" + cep + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
@@ -151,10 +198,10 @@ public class Segurado extends Pessoa{
 		this.orgaoExpedidorRG = orgaoExpedidorRG;
 	}
 	public String getNumeroHabilitacao() {
-		return numeroHabilitacao;
+		return ;
 	}
 	public void setNumeroHabilitacao(String numeroHabilitacao) {
-		this.numeroHabilitacao = numeroHabilitacao;
+		this. = numeroHabilitacao;
 	}
 	public String getTipoHabilitacao() {
 		return tipoHabilitacao;
@@ -222,17 +269,6 @@ public class Segurado extends Pessoa{
 	public void setProposta(Set<Proposta> proposta) {
 		this.proposta = proposta;
 	}
-	private String numeroHabilitacao;
-	private String tipoHabilitacao;
-	private Date dataValidadeHabilitacao;
-	private Date dataPrimeiraHabilitacao;
-	private String logradouro;
-	private String numero;
-	private String complemento;
-	private String cep;
-	private String bairro;
-	private String cidade;
-	private String estado;
-	private Set<Proposta> proposta;
+	
 
 }

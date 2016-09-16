@@ -2,11 +2,15 @@ package br.unibh.seguros.entidades;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="tb_setor")
@@ -28,10 +32,20 @@ public class Setor {
 	}
 	@PrimaryKeyJoinColumn
 	private Long id;
+	
+	@Column (length = 150, nullable=false)
 	private String nome;
+	
+	@Column (length = 10, nullable=false)
 	private String sigla;
+	
+	@OneToOne
+    @JoinColumn(name = "setor_superior", nullable=false)
 	private Setor setorSuperior;
+	
+	@OneToOne
 	private Set<Funcionario> funcionarios;
+	@Version
 	private Long version;
 	@Override
 	public int hashCode() {

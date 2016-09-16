@@ -3,8 +3,13 @@ package br.unibh.seguros.entidades;
 import java.io.File;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
 @table(name="tb_tramitacao")
@@ -15,13 +20,29 @@ public class Tramitacao {
 	@GeneratdValue(strategy=GenerationType.IDENTITY)
 	
 	private Long id;
+	
+	@OneToOne
 	private Proposta proposta;
+	
+	@Column (name="etapa_processo", nullable=false)
 	private EtapaProcesso EtapaProcesso;
+	
+	@Column (name="data_hora", nullable=false)
+	@Temporal (TemporalType.TIMESTAMP)
 	private Date dataHora;
+	
+	@Column (name="tipo_decisao", nullable=false)
 	private TipoDecisao tipoDecisao;
+	
+	@OneToOne
 	private Funcionario usuarioDecisao;
+	
+	@Column (length = 4000, nullable=false)
 	private String comentario;
+	
+	@Column (columnDefinition="BLOB", nullable=false)
 	private File documento;
+	@Version
 	private Long version;
 	public Long getId() {
 		return id;

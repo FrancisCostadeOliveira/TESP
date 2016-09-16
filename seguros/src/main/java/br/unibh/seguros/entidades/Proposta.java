@@ -4,10 +4,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="tb_proposta")
@@ -18,23 +23,61 @@ public class Proposta {
 	@ID
 	@PrimaryKeyJoinColumn 
 	private Long id;
+	
+	@Column (nullable=false)
+	@Temporal (TemporalType.TIMESTAMP)
 	private Date data;
+	
+	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String classe;
+	
+	@Column (name="codigo_susep", columnDefinition="CHAR(15)", nullable=false, unique=true)
 	private String codigoSusep;
+	
+	@Column (name="valor_segurado", columnDefinition="decimal(14,2)", nullable=false)
 	private BigDecimal valorSegurado;
+	
+	@Column (name="valor_franquia", columnDefinition="decimal(14,2)", nullable=false)
 	private BigDecimal valorFranquia;
+	
+	@Column (name="data_inicio_vigencia", nullable=false)
+	@Temporal (TemporalType.DATE)
 	private Date dataInicioVigencia;
+	
+	@Column (name="data_terminio", nullable=false)
+	@Temporal (TemporalType.DATE)
 	private Date dataTerminoVigencia;
+	
+	@Column (name="carencia_em_meses", nullable=false)
 	private int carenciaEmMeses;
+	
+	@Column (name="valor_premio", columnDefinition="decimal(14,2)", nullable=false)
 	private BigDecimal valorPremio;
+	
+	@Column (name="dia_pagamento", nullable=false)
 	private int diaPagamento;
+	
+	@Column (name="banco_pagamento", length = 50, nullable=false)
 	private String bancoPagamento;
+	
+	@Column (length = 15, nullable=false)
 	private String agencia;
+	
+	@Column (length = 15, nullable=false)
 	private String conta;
+	
+	@OneToOne
 	private Segurado segurado;
+	
+	@OneToOne
 	private Veiculo veiculo;
+	
+	@OneToOne
 	private Questionario questionario;
+	
+	@OneToOne
 	private Set<Tramitacao> tramitacoes;
+	@Version
 	private Long version;
 	public Long getId() {
 		return id;

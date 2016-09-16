@@ -2,7 +2,9 @@ package br.unibh.seguros.entidades;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @table(name="tb_funcionario")
@@ -16,9 +18,16 @@ public class Funcionario extends Pessoa {
 				dataCadastro);
 		// TODO Auto-generated constructor stub
 	}
+	@OneToOne
 	private Setor setor;
+	
+	@Column (length = 30, nullable=false)
 	private String perfil;
+	
+	@Column (length = 15, nullable=false)
 	private String login;
+	
+	@Column (length = 100, nullable=false)
 	private String senha;
 	public Setor getSetor() {
 		return setor;
