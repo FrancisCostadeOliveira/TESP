@@ -6,47 +6,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @Entity
-@table(name="tb_pessoa")
+@Table(name="tb_pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
-
-
-
-
 public abstract class Pessoa {
 	
-	@ID
-	@GeneratdValue(strategy=GenerationType.IDENTITY)
-	@CPF
-	 
-	
-	
-	 
-	
-	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
-			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.sexo = sexo;
-		this.cpf = cpf;
-		this.telefoneComercial = telefoneComercial;
-		this.telefoneResidencial = telefoneResidencial;
-		this.telefoneCelular = telefoneCelular;
-		this.email = email;
-		this.dataNascimento = dataNascimento;
-		this.dataCadastro = dataCadastro;
-	}
-	@PrimaryKeyJoinColumn 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+		
 	@Column (length = 100, nullable=false)
 	private String nome;
 
@@ -75,16 +51,38 @@ public abstract class Pessoa {
 	@Column (name="data_cadastro", nullable=false)
 	@Temporal (TemporalType.TIMESTAMP)
 	private Date dataCadastro;
+	
 	@Version
 	private Long version;
-	@Override
 	
+	
+	public Pessoa(){
+		
+	}
+	
+	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
+			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.cpf = cpf;
+		this.telefoneComercial = telefoneComercial;
+		this.telefoneResidencial = telefoneResidencial;
+		this.telefoneCelular = telefoneCelular;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.dataCadastro = dataCadastro;
+	}
+	
+	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf + ", telefoneComercial="
 				+ telefoneComercial + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular="
 				+ telefoneCelular + ", email=" + email + ", dataNascimento=" + dataNascimento + ", dataCadastro="
 				+ dataCadastro + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -101,6 +99,7 @@ public abstract class Pessoa {
 		result = prime * result + ((telefoneResidencial == null) ? 0 : telefoneResidencial.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

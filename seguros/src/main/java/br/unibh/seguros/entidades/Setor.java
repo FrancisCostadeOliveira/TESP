@@ -6,22 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name="tb_setor")
-
+@Table(name = "tb_setor")
 public class Setor {
-	
-	@ID
-	@GeneratdValue(strategy=GenerationType.IDENTITY)
-	
-	
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
 		super();
 		this.id = id;
@@ -30,23 +28,22 @@ public class Setor {
 		this.setorSuperior = setorSuperior;
 		this.funcionarios = funcionarios;
 	}
-	@PrimaryKeyJoinColumn
-	private Long id;
-	
-	@Column (length = 150, nullable=false)
+
+	@Column(length = 150, nullable = false)
 	private String nome;
-	
-	@Column (length = 10, nullable=false)
+
+	@Column(length = 10, nullable = false)
 	private String sigla;
-	
+
 	@OneToOne
-    @JoinColumn(name = "setor_superior", nullable=false)
+	@JoinColumn(name = "setor_superior", nullable = false)
 	private Setor setorSuperior;
-	
+
 	@OneToOne
 	private Set<Funcionario> funcionarios;
 	@Version
 	private Long version;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +55,7 @@ public class Setor {
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -94,38 +92,49 @@ public class Setor {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Setor [id=" + id + ", nome=" + nome + ", sigla=" + sigla + ", setorSuperior=" + setorSuperior
 				+ ", funcionarios=" + funcionarios + "]";
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getSigla() {
 		return sigla;
 	}
+
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
+
 	public Setor getSetorSuperior() {
 		return setorSuperior;
 	}
+
 	public void setSetorSuperior(Setor setorSuperior) {
 		this.setorSuperior = setorSuperior;
 	}
+
 	public Set<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
+
 	public void setFuncionarios(Set<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}

@@ -5,10 +5,11 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@table(name="tb_funcionario")
-
+@Table(name="tb_funcionario")
+@PrimaryKeyJoinColumn
 public class Funcionario extends Pessoa {
 	
 	
