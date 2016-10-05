@@ -12,189 +12,297 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="tb_proposta")
+@Table(name = "tb_proposta")
+
 public class Proposta {
-	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKeyJoinColumn
 	private Long id;
-	
-	@Column (nullable=false)
-	@Temporal (TemporalType.TIMESTAMP)
+
+	@NotNull
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
-	
-	@Column (columnDefinition="CHAR(1)", nullable=false)
+
+	@Pattern(regexp = "[A-Z]{1}")
+	@Size(max = 1, min = 1)
+	@Column(columnDefinition = "CHAR(1)", nullable = false)
 	private String classe;
-	
-	@Column (name="codigo_susep", columnDefinition="CHAR(15)", nullable=false, unique=true)
+
+	@NotBlank
+	@Size(max = 15)
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Column(name = "codigo_susep", columnDefinition = "CHAR(15)", unique = true)
 	private String codigoSusep;
-	
-	@Column (name="valor_segurado", columnDefinition="decimal(14,2)", nullable=false)
+
+	@NotNull
+	@DecimalMin("0.01")
+	@Column(name = "valor_segurado", columnDefinition = "DECIMAL(14,2)", nullable = false)
 	private BigDecimal valorSegurado;
-	
-	@Column (name="valor_franquia", columnDefinition="decimal(14,2)", nullable=false)
+
+	@NotNull
+	@DecimalMin("0.01")
+	@Column(name = "valor_franquia", columnDefinition = "DECIMAL(14,2)", nullable = false)
 	private BigDecimal valorFranquia;
-	
-	@Column (name="data_inicio_vigencia", nullable=false)
-	@Temporal (TemporalType.DATE)
+
+	@NotNull
+	@Column(name = "data_inicio_vigencia", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicioVigencia;
-	
-	@Column (name="data_terminio", nullable=false)
-	@Temporal (TemporalType.DATE)
+
+	@NotNull
+	@Column(name = "data_termino_vigencia", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTerminoVigencia;
-	
-	@Column (name="carencia_em_meses", nullable=false)
+
+	@NotNull
+	@Column(name = "carencia_em_meses", nullable = false)
 	private int carenciaEmMeses;
-	
-	@Column (name="valor_premio", columnDefinition="decimal(14,2)", nullable=false)
+
+	@NotNull
+	@DecimalMin("0.01")
+	@Column(name = "valor_premio", columnDefinition = "DECIMAL(14,2)", nullable = false)
 	private BigDecimal valorPremio;
-	
-	@Column (name="dia_pagamento", nullable=false)
+
+	@NotNull
+	@Column(name = "dia_pagamento", nullable = false)
 	private int diaPagamento;
-	
-	@Column (name="banco_pagamento", length = 50, nullable=false)
+
+	@NotBlank
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Size(max = 50)
+	@Column(name = "banco_pagamento", length = 50, nullable = false)
 	private String bancoPagamento;
-	
-	@Column (length = 15, nullable=false)
+
+	@NotBlank
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Size(max = 15)
+	@Column(length = 15, nullable = false)
 	private String agencia;
-	
-	@Column (length = 15, nullable=false)
+
+	@NotBlank
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Size(max = 15)
+	@Column(length = 15, nullable = false)
 	private String conta;
-	
+
 	@ManyToOne
 	private Segurado segurado;
-	
+
 	@OneToOne
 	private Veiculo veiculo;
-	
+
 	@OneToOne
 	private Questionario questionario;
-	
-	@OneToMany(mappedBy="proposta")
+
+	@OneToMany(mappedBy = "proposta")
 	private Set<Tramitacao> tramitacoes;
-	
+
 	@Version
 	private Long version;
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Date getData() {
 		return data;
 	}
+
 	public void setData(Date data) {
 		this.data = data;
 	}
+
 	public String getClasse() {
 		return classe;
 	}
+
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
-	public BigDecimal getValorSegurado() {
-		return valorSegurado;
-	}
-	public void setValorSegurado(BigDecimal valorSegurado) {
-		this.valorSegurado = valorSegurado;
-	}
+
 	public String getCodigoSusep() {
 		return codigoSusep;
 	}
+
 	public void setCodigoSusep(String codigoSusep) {
 		this.codigoSusep = codigoSusep;
 	}
-	public Date getDataInicioVigencia() {
-		return dataInicioVigencia;
+
+	public BigDecimal getValorSegurado() {
+		return valorSegurado;
 	}
-	public void setDataInicioVigencia(Date dataInicioVigencia) {
-		this.dataInicioVigencia = dataInicioVigencia;
+
+	public void setValorSegurado(BigDecimal valorSegurado) {
+		this.valorSegurado = valorSegurado;
 	}
-	public Date getDataTerminoVigencia() {
-		return dataTerminoVigencia;
-	}
-	public void setDataTerminoVigencia(Date dataTerminoVigencia) {
-		this.dataTerminoVigencia = dataTerminoVigencia;
-	}
-	public int getCarenciaEmMeses() {
-		return carenciaEmMeses;
-	}
-	public void setCarenciaEmMeses(int carenciaEmMeses) {
-		this.carenciaEmMeses = carenciaEmMeses;
-	}
-	public BigDecimal getValorPremio() {
-		return valorPremio;
-	}
-	public void setValorPremio(BigDecimal valorPremio) {
-		this.valorPremio = valorPremio;
-	}
+
 	public BigDecimal getValorFranquia() {
 		return valorFranquia;
 	}
+
 	public void setValorFranquia(BigDecimal valorFranquia) {
 		this.valorFranquia = valorFranquia;
 	}
+
+	public Date getDataInicioVigencia() {
+		return dataInicioVigencia;
+	}
+
+	public void setDataInicioVigencia(Date dataInicioVigencia) {
+		this.dataInicioVigencia = dataInicioVigencia;
+	}
+
+	public Date getDataTerminoVigencia() {
+		return dataTerminoVigencia;
+	}
+
+	public void setDataTerminoVigencia(Date dataTerminoVigencia) {
+		this.dataTerminoVigencia = dataTerminoVigencia;
+	}
+
+	public int getCarenciaEmMeses() {
+		return carenciaEmMeses;
+	}
+
+	public void setCarenciaEmMeses(int carenciaEmMeses) {
+		this.carenciaEmMeses = carenciaEmMeses;
+	}
+
+	public BigDecimal getValorPremio() {
+		return valorPremio;
+	}
+
+	public void setValorPremio(BigDecimal valorPremio) {
+		this.valorPremio = valorPremio;
+	}
+
 	public int getDiaPagamento() {
 		return diaPagamento;
 	}
+
 	public void setDiaPagamento(int diaPagamento) {
 		this.diaPagamento = diaPagamento;
 	}
+
 	public String getBancoPagamento() {
 		return bancoPagamento;
 	}
+
 	public void setBancoPagamento(String bancoPagamento) {
 		this.bancoPagamento = bancoPagamento;
 	}
-	public String getConta() {
-		return conta;
-	}
-	public void setConta(String conta) {
-		this.conta = conta;
-	}
+
 	public String getAgencia() {
 		return agencia;
 	}
+
 	public void setAgencia(String agencia) {
 		this.agencia = agencia;
 	}
+
+	public String getConta() {
+		return conta;
+	}
+
+	public void setConta(String conta) {
+		this.conta = conta;
+	}
+
 	public Segurado getSegurado() {
 		return segurado;
 	}
+
 	public void setSegurado(Segurado segurado) {
 		this.segurado = segurado;
 	}
-	public Long getVersion() {
-		return version;
-	}
-	public void setVersion(Long version) {
-		this.version = version;
-	}
-	public Questionario getQuestionario() {
-		return questionario;
-	}
-	public void setQuestionario(Questionario questionario) {
-		this.questionario = questionario;
-	}
+
 	public Veiculo getVeiculo() {
 		return veiculo;
 	}
+
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
+
+	public Questionario getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(Questionario questionario) {
+		this.questionario = questionario;
+	}
+
 	public Set<Tramitacao> getTramitacoes() {
 		return tramitacoes;
 	}
+
 	public void setTramitacoes(Set<Tramitacao> tramitacoes) {
 		this.tramitacoes = tramitacoes;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	@Override
+	public String toString() {
+		return "Proposta [id=" + id + ", data=" + data + ", classe=" + classe + ", codigoSusep=" + codigoSusep
+				+ ", valorSegurado=" + valorSegurado + ", valorFranquia=" + valorFranquia + ", dataInicioVigencia="
+				+ dataInicioVigencia + ", dataTerminoVigencia=" + dataTerminoVigencia + ", carenciaEmMeses="
+				+ carenciaEmMeses + ", valorPremio=" + valorPremio + ", diaPagamento=" + diaPagamento
+				+ ", bancoPagamento=" + bancoPagamento + ", agencia=" + agencia + ", conta=" + conta + ", segurado="
+				+ segurado + ", veiculo=" + veiculo + ", questionario=" + questionario + ", tramitacoes=" + tramitacoes
+				+ ", version=" + version + "]";
+	}
+
+	public Proposta(Long id, Date data, String classe, String codigoSusep, BigDecimal valorSegurado,
+			BigDecimal valorFranquia, Date dataInicioVigencia, Date dataTerminoVigencia, int carenciaEmMeses,
+			BigDecimal valorPremio, int diaPagamento, String bancoPagamento, String agencia, String conta,
+			Segurado segurado, Veiculo veiculo, Questionario questionario, Set<Tramitacao> tramitacoes, Long version) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.classe = classe;
+		this.codigoSusep = codigoSusep;
+		this.valorSegurado = valorSegurado;
+		this.valorFranquia = valorFranquia;
+		this.dataInicioVigencia = dataInicioVigencia;
+		this.dataTerminoVigencia = dataTerminoVigencia;
+		this.carenciaEmMeses = carenciaEmMeses;
+		this.valorPremio = valorPremio;
+		this.diaPagamento = diaPagamento;
+		this.bancoPagamento = bancoPagamento;
+		this.agencia = agencia;
+		this.conta = conta;
+		this.segurado = segurado;
+		this.veiculo = veiculo;
+		this.questionario = questionario;
+		this.tramitacoes = tramitacoes;
+		this.version = version;
 	}
 
 }
