@@ -6,9 +6,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,12 +19,10 @@ import javax.persistence.Version;
 
 @Entity
 @Table(name="tb_proposta")
-
 public class Proposta {
 	
-	@GeneratdValue(strategy=GenerationType.IDENTITY)
-	@ID
-	@PrimaryKeyJoinColumn 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
 	private Long id;
 	
 	@Column (nullable=false)
@@ -66,7 +67,7 @@ public class Proposta {
 	@Column (length = 15, nullable=false)
 	private String conta;
 	
-	@OneToOne
+	@ManyToOne
 	private Segurado segurado;
 	
 	@OneToOne
@@ -75,10 +76,12 @@ public class Proposta {
 	@OneToOne
 	private Questionario questionario;
 	
-	@OneToOne
+	@OneToMany(mappedBy="proposta")
 	private Set<Tramitacao> tramitacoes;
+	
 	@Version
 	private Long version;
+	
 	public Long getId() {
 		return id;
 	}

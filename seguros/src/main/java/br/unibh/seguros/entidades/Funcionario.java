@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="tb_funcionario")
@@ -13,12 +14,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Funcionario extends Pessoa {
 	
 	
-	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
-			String telefoneResidencial, String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
-		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
-				dataCadastro);
-		// TODO Auto-generated constructor stub
-	}
+	
 	@OneToOne
 	private Setor setor;
 	
@@ -55,7 +51,12 @@ public class Funcionario extends Pessoa {
 		this.senha = senha;
 	}
 	
-
+	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
+			String telefoneResidencial, String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
+		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
+				dataCadastro);
+		// TODO Auto-generated constructor stub
+	}
 	
 	@Override
 	public String toString() {

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -61,15 +61,9 @@ public class Segurado extends Pessoa{
 	@Column (columnDefinition="CHAR(2)", nullable=false)
 	private String estado;
 	
-	@OneToOne
+	@OneToMany(mappedBy="segurado")
 	private Set<Proposta> proposta;
 	
-	public Segurado(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
-			String telefoneCelular, String email, java.sql.Date dataNascimento, java.sql.Date dataCadastro) {
-		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
-				dataCadastro);
-		// TODO Auto-generated constructor stub
-	}
 	
 	@Override
 	public int hashCode() {
@@ -85,7 +79,7 @@ public class Segurado extends Pessoa{
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-		result = prime * result + (( == null) ? 0 : .hashCode());
+		result = prime * result + ((numeroHabilitacao == null) ? 0 : numeroHabilitacao.hashCode());
 		result = prime * result + ((numeroRG == null) ? 0 : numeroRG.hashCode());
 		result = prime * result + ((orgaoExpedidorRG == null) ? 0 : orgaoExpedidorRG.hashCode());
 		result = prime * result + ((tipoHabilitacao == null) ? 0 : tipoHabilitacao.hashCode());
@@ -150,10 +144,10 @@ public class Segurado extends Pessoa{
 				return false;
 		} else if (!numero.equals(other.numero))
 			return false;
-		if ( == null) {
-			if (other. != null)
+		if (numeroHabilitacao == null) {
+			if (other.numeroHabilitacao != null)
 				return false;
-		} else if (!.equals(other.))
+		} else if (!numeroHabilitacao.equals(other.numeroHabilitacao))
 			return false;
 		if (numeroRG == null) {
 			if (other.numeroRG != null)
@@ -175,7 +169,7 @@ public class Segurado extends Pessoa{
 	@Override
 	public String toString() {
 		return "Segurado [classe=" + classe + ", numeroRG=" + numeroRG + ", orgaoExpedidorRG=" + orgaoExpedidorRG
-				+ ", numeroHabilitacao=" +  + ", tipoHabilitacao=" + tipoHabilitacao
+				+ ", numeroHabilitacao=" + numeroHabilitacao + ", tipoHabilitacao=" + tipoHabilitacao
 				+ ", dataValidadeHabilitacao=" + dataValidadeHabilitacao + ", dataPrimeiraHabilitacao="
 				+ dataPrimeiraHabilitacao + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento="
 				+ complemento + ", cep=" + cep + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
@@ -200,10 +194,10 @@ public class Segurado extends Pessoa{
 		this.orgaoExpedidorRG = orgaoExpedidorRG;
 	}
 	public String getNumeroHabilitacao() {
-		return ;
+		return numeroHabilitacao;
 	}
 	public void setNumeroHabilitacao(String numeroHabilitacao) {
-		this. = numeroHabilitacao;
+		this.numeroHabilitacao = numeroHabilitacao;
 	}
 	public String getTipoHabilitacao() {
 		return tipoHabilitacao;
@@ -272,5 +266,4 @@ public class Segurado extends Pessoa{
 		this.proposta = proposta;
 	}
 	
-
 }

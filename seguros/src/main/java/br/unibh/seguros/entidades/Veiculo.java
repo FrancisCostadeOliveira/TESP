@@ -2,17 +2,19 @@ package br.unibh.seguros.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@table(name="tb_veiculo")
+@Table(name="tb_veiculo")
 
 public class Veiculo {
 	
-	@ID
-	@GeneratdValue(strategy=GenerationType.IDENTITY)
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column (length = 50, nullable=false)
@@ -41,8 +43,10 @@ public class Veiculo {
 	
 	@Column (name="veiculo_alienado", nullable=false)
 	private Boolean veiculoAlienado;
+	
 	@Version 
 	private Long version;
+	
 	public Long getVersion() {
 		return version;
 	}
