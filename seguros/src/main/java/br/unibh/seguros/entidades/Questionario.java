@@ -206,4 +206,8 @@ public class Questionario {
 		this.version = version;
 	}
 
+	public Questionario() {
+
+	}
+
 }

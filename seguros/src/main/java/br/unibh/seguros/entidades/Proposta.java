@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -26,6 +28,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_proposta")
+@NamedQueries({
+		@NamedQuery(name = "Proposta.findByCodigoSusep", query = "select o from Proposta o where o.codigoSusep like :codigoSusep") })
 
 public class Proposta {
 
@@ -277,6 +281,10 @@ public class Proposta {
 				+ ", bancoPagamento=" + bancoPagamento + ", agencia=" + agencia + ", conta=" + conta + ", segurado="
 				+ segurado + ", veiculo=" + veiculo + ", questionario=" + questionario + ", tramitacoes=" + tramitacoes
 				+ ", version=" + version + "]";
+	}
+
+	public Proposta() {
+
 	}
 
 	public Proposta(Long id, Date data, String classe, String codigoSusep, BigDecimal valorSegurado,

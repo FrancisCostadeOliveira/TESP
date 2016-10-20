@@ -185,4 +185,8 @@ public class Veiculo {
 		this.version = version;
 	}
 
+	public Veiculo() {
+
+	}
+
 }

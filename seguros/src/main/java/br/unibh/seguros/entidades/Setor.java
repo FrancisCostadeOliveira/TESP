@@ -1,5 +1,6 @@
 package br.unibh.seguros.entidades;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -19,9 +22,19 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-
 @Table(name = "tb_setor")
-public class Setor {
+@NamedQueries({ @NamedQuery(name = "Setor.findByName", query = "select o from Setor o where o.nome like :nome"),
+		@NamedQuery(name = "Setor.findByNameComFuncionarios", query = "select o from Setor o join fetch o.funcionarios where o.nome like :nome")
+
+})
+
+public class Setor implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 
 	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
 		super();

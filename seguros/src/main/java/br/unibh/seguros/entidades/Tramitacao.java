@@ -151,4 +151,8 @@ public class Tramitacao {
 		this.version = version;
 	}
 
+	public Tramitacao() {
+
+	}
+
 }
