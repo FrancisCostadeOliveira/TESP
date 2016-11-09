@@ -1,5 +1,7 @@
 package br.unibh.seguros.entidades;
 
+
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,65 +25,65 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "tb_pessoa")
+@Entity @Inheritance(strategy=InheritanceType.JOINED)
+@Table(name="tb_pessoa")
+
+
 
 public abstract class Pessoa {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+		
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@PrimaryKeyJoinColumn
 	private Long id;
-
-	@Column(length = 100, nullable = false)
+	
+	@Column (length = 100, nullable=false)
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú .']*", message = "Deverá ter apenas Letras e Espaço")
-	@Size(min = 3, max = 100)
+	@Pattern(regexp="[A-zÀ-ú .']*",message="Deverá ter apenas Letras e Espaço")
+	@Size(min=3,max=100)
 	private String nome;
-
+	
 	@NotBlank
-	@Pattern(regexp = "[MF]{1}")
-	@Column(columnDefinition = "CHAR(1)", nullable = false)
+	@Pattern(regexp="[MF]{1}")
+	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String sexo;
-
+	
 	@NotBlank
 	@CPF
-	@Column(columnDefinition = "CHAR(11)", nullable = false, unique = true)
+	@Column (columnDefinition="CHAR(11)", nullable=false, unique=true)
 	private String cpf;
-
-	@Pattern(regexp = "\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
-	@Column(name = "telefone_comercial", columnDefinition = "CHAR(14)", nullable = false)
+	
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Column (name="telefone_comercial", columnDefinition="CHAR(14)",nullable=false )
 	private String telefoneComercial;
-
-	@Pattern(regexp = "\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
-	@Column(name = "telefone_residencial", columnDefinition = "CHAR(14)", nullable = false)
+	
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Column (name="telefone_residencial", columnDefinition="CHAR(14)", nullable=false)
 	private String telefoneResidencial;
-
-	@Pattern(regexp = "\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
-	@Column(name = "telefone_celular", columnDefinition = "CHAR(14)", nullable = false)
+	
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Column (name="telefone_celular", columnDefinition="CHAR(14)", nullable=false)
 	private String telefoneCelular;
-
+	
 	@Email
-	@Size(max = 100)
-	@Column(length = 100)
+	@Size(max=100)
+	@Column (length=100)
 	private String email;
-
+	
 	@NotNull
 	@Past
-	@Column(name = "data_nascimento", nullable = false)
-	@Temporal(TemporalType.DATE)
+	@Column (name="data_nascimento", nullable=false)
+	@Temporal (TemporalType.DATE)
 	private Date dataNascimento;
-
+	
 	@NotNull
 	@Past
-	@Column(name = "data_cadastro", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Column (name="data_cadastro", nullable=false)
+	@Temporal (TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-
+	
 	@Version
 	private Long version;
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,7 +101,6 @@ public abstract class Pessoa {
 		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -166,11 +167,9 @@ public abstract class Pessoa {
 			return false;
 		return true;
 	}
-
-	public Pessoa() {
-
+	public Pessoa(){
+		
 	}
-
 	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
 			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro, Long version) {
 		super();
@@ -186,7 +185,6 @@ public abstract class Pessoa {
 		this.dataCadastro = dataCadastro;
 		this.version = version;
 	}
-
 	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf + ", telefoneComercial="
@@ -194,91 +192,69 @@ public abstract class Pessoa {
 				+ telefoneCelular + ", email=" + email + ", dataNascimento=" + dataNascimento + ", dataCadastro="
 				+ dataCadastro + ", version=" + version + "]";
 	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 	public String getSexo() {
 		return sexo;
 	}
-
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
 	public String getCpf() {
 		return cpf;
 	}
-
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
 	public String getTelefoneComercial() {
 		return telefoneComercial;
 	}
-
 	public void setTelefoneComercial(String telefoneComercial) {
 		this.telefoneComercial = telefoneComercial;
 	}
-
 	public String getTelefoneResidencial() {
 		return telefoneResidencial;
 	}
-
 	public void setTelefoneResidencial(String telefoneResidencial) {
 		this.telefoneResidencial = telefoneResidencial;
 	}
-
 	public String getTelefoneCelular() {
 		return telefoneCelular;
 	}
-
 	public void setTelefoneCelular(String telefoneCelular) {
 		this.telefoneCelular = telefoneCelular;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
-
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
-
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-
 	public Long getVersion() {
 		return version;
 	}
-
 	public void setVersion(Long version) {
 		this.version = version;
 	}

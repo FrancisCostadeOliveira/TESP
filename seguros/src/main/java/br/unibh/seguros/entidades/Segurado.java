@@ -20,7 +20,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_segurado")
-@NamedQueries({ @NamedQuery(name = "Segurado.findByName", query = "select o from Segurado o where o.nome like :nome") })
+@NamedQueries({
+@NamedQuery(name="Segurado.findByName", query = "select o from Segurado o where o.nome like :nome")})
 public class Segurado extends Pessoa {
 
 	public Segurado() {

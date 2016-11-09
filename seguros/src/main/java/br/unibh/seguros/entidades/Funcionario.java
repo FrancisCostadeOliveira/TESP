@@ -12,25 +12,31 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
-@Table(name = "tb_funcionario")
+@Table(name="tb_funcionario")
 @NamedQueries({
-		@NamedQuery(name = "Funcionario.findByName", query = "select o from Funcionario o where o.nome like :nome") })
+@NamedQuery(name="Funcionario.findByName", query = "select o from Funcionario o where o.nome like :nome"),
+@NamedQuery(name="Funcionario.findByCpfComSetor", query = "select o from Funcionario o join fetch o.setor where o.cpf like :cpf")
+
+
+
+})
 
 public class Funcionario extends Pessoa {
-
-	public Funcionario() {
-
+	
+	
+	public Funcionario(){
+		
 	}
-
 	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
 			String telefoneResidencial, String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
 		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
 				dataCadastro, null);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
+	
 	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
 			String telefoneResidencial, String telefoneCelular, String email, java.util.Date dataNascimento,
 			java.util.Date dataCadastro, Long version, Setor setor, String perfil, String login, String senha) {
@@ -42,63 +48,60 @@ public class Funcionario extends Pessoa {
 		this.senha = senha;
 	}
 
+
+
 	@ManyToOne
 	private Setor setor;
-
+	
+	
 	@NotBlank
-	@Size(max = 30)
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
-	@Column(length = 30, nullable = false)
+	@Size (max=30)
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Column (length=30, nullable=false)
 	private String perfil;
-
+	
 	@NotBlank
-	@Pattern(regexp = "[A-z0-9]*", message = "Não deve ter caracteres especiais e espaços")
-	@Size(min = 8, max = 15)
-	@Column(length = 15, nullable = false)
+	@Pattern(regexp="[A-z0-9]*",message="Não deve ter caracteres especiais e espaços")
+	@Size(min=8,max=15)
+	@Column (length=15, nullable=false)
 	private String login;
-
-	@Size(max = 100)
-	@Column(length = 100, nullable = false)
+	
+	
+	@Size(max=100)
+	@Column (length=100, nullable=false)
 	private String senha;
+	
 
+	
 	public Setor getSetor() {
 		return setor;
 	}
-
 	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
-
 	public String getPerfil() {
 		return perfil;
 	}
-
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
-
 	public String getLogin() {
 		return login;
 	}
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
 	public String getSenha() {
 		return senha;
 	}
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
 	@Override
 	public String toString() {
 		return "Funcionario [perfil=" + perfil + ", login=" + login + ", senha=" + senha + ", toString()="
 				+ super.toString() + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,7 +111,6 @@ public class Funcionario extends Pessoa {
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,5 +137,6 @@ public class Funcionario extends Pessoa {
 			return false;
 		return true;
 	}
+	
 
 }

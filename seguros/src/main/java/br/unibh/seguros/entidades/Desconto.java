@@ -24,88 +24,86 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "tb_desconto")
+@Table(name="tb_desconto")
 @NamedQueries({
-		@NamedQuery(name = "Desconto.findByName", query = "select o from Desconto o where o.classe like :classe") })
+@NamedQuery(name="Desconto.findByName", query = "select o from Desconto o where o.classe like :classe"),
+@NamedQuery(name="Desconto.findByClasse", query = "select o from Desconto o where o.classe = :classe and o.dataFim is null"),
+@NamedQuery(name="Desconto.findAllByClasse", query = "select o from Desconto o where o.classe = :classe")
+})
 public class Desconto {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@PrimaryKeyJoinColumn
 	private Long id;
 
 	@NotBlank
-	@Pattern(regexp = "[A-Z]")
-	@Column(columnDefinition = "CHAR(1)", nullable = false)
-	private String classe;
-
+	@Pattern(regexp="[A-Z]")
+	@Column (columnDefinition="CHAR(1)", nullable=false)
+	private String classe ;
+	
+	
 	@NotNull
 	@Past
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_inicio", nullable = false)
+	@Temporal (TemporalType.DATE)
+	@Column (name="data_inicio", nullable=false)
 	private Date dataInicio;
-
+	
+	
+	
 	@Future
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_fim")
+	@Temporal (TemporalType.DATE)
+	@Column (name="data_fim")
 	private Date dataFim;
-
+	
 	@NotNull
 	@DecimalMin("0.01")
 	@DecimalMax("100.00")
-	@Column(name = "percentual_desconto", columnDefinition = "DECIMAL(14,2)", nullable = false)
+	@Column (name="percentual_desconto", columnDefinition="DECIMAL(14,2)", nullable=false)
 	private BigDecimal percentualDesconto;
-
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getClasse() {
 		return classe;
 	}
-
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
-
 	public Date getDataInicio() {
 		return dataInicio;
 	}
-
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-
 	public Date getDataFim() {
 		return dataFim;
 	}
-
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
-
 	public BigDecimal getPercentualDesconto() {
 		return percentualDesconto;
 	}
-
 	public void setPercentualDesconto(BigDecimal percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
-
 	@Override
 	public String toString() {
 		return "Desconto [id=" + id + ", classe=" + classe + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim
 				+ ", percentualDesconto=" + percentualDesconto + "]";
 	}
-
-	public Desconto() {
-
+	public Desconto(){
+		
 	}
-
 	public Desconto(Long id, String classe, Date dataInicio, Date dataFim, BigDecimal percentualDesconto) {
 		super();
 		this.id = id;
@@ -114,7 +112,6 @@ public class Desconto {
 		this.dataFim = dataFim;
 		this.percentualDesconto = percentualDesconto;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,7 +123,6 @@ public class Desconto {
 		result = prime * result + ((percentualDesconto == null) ? 0 : percentualDesconto.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -163,5 +159,7 @@ public class Desconto {
 			return false;
 		return true;
 	}
-
+	
+	
+	
 }

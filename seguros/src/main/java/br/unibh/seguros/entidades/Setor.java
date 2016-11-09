@@ -1,6 +1,5 @@
 package br.unibh.seguros.entidades;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,22 +19,16 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
-@Table(name = "tb_setor")
-@NamedQueries({ @NamedQuery(name = "Setor.findByName", query = "select o from Setor o where o.nome like :nome"),
-		@NamedQuery(name = "Setor.findByNameComFuncionarios", query = "select o from Setor o join fetch o.funcionarios where o.nome like :nome")
-
+@Table(name="tb_setor")
+@NamedQueries({
+@NamedQuery(name="Setor.findByName", query = "select o from Setor o where o.nome like :nome"),
+@NamedQuery(name="Setor.findByIdComSetorSuperior", query = "select o from Setor o left join fetch o.setorSuperior where o.id = :id"),
+@NamedQuery(name="Setor.finbByNameComFuncionarios", query = "select o from Setor o join fetch o.funcionarios where o.nome like :nome")
 })
 
-public class Setor implements Serializable {
-/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-
-
+public class Setor {
+	
 	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
 		super();
 		this.id = id;
@@ -44,35 +37,41 @@ public class Setor implements Serializable {
 		this.setorSuperior = setorSuperior;
 		this.funcionarios = funcionarios;
 	}
-
+	
+	public Setor(){
+		
+		
+	}
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@PrimaryKeyJoinColumn
-	@Column(unique = true)
+	@Column (unique=true)
 	private Long id;
-
+	
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú .']*", message = "Apenas caracteres de A à Z maiúsculos ou minúsculos, com ou sem acentuação, além dos caracteres de espaço, ponto e aspas simples.")
-	@Size(min = 3, max = 150)
-	@Column(length = 150, nullable = false)
+	@Pattern(regexp="[A-zÀ-ú .']*",message="Apenas caracteres de A à Z maiúsculos ou minúsculos, com ou sem acentuação, além dos caracteres de espaço, ponto e aspas simples.")
+	@Size(min=3,max=150) 
+	@Column (length = 150, nullable=false)
 	private String nome;
-
+	
 	@NotBlank
-	@Pattern(regexp = "[A-Z]*", message = "Deverá ter apenas Letras maiúsculos sem espaços")
-	@Size(min = 2, max = 10)
-	@Column(length = 10, nullable = false)
+	@Pattern(regexp="[A-Z]*",message="Deverá ter apenas Letras maiúsculos sem espaços")
+	@Size (min=2,max=10)
+	@Column (length = 10, nullable=false)
 	private String sigla;
-
+	
+	
 	@OneToOne
-	@JoinColumn(name = "setor_superior")
+	@JoinColumn (name="setor_superior")
 	private Setor setorSuperior;
-
-	@OneToMany(mappedBy = "setor")
+	
+	@OneToMany(mappedBy="setor")
 	private Set<Funcionario> funcionarios;
-
+	
 	@Version
 	private Long version;
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,7 +83,6 @@ public class Setor implements Serializable {
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -121,59 +119,48 @@ public class Setor implements Serializable {
 			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
 		return "Setor [id=" + id + ", nome=" + nome + ", sigla=" + sigla + ", setorSuperior=" + setorSuperior
 				+ ", funcionarios=" + funcionarios + "]";
 	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 	public String getSigla() {
 		return sigla;
 	}
-
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
-
 	public Setor getSetorSuperior() {
 		return setorSuperior;
 	}
-
 	public void setSetorSuperior(Setor setorSuperior) {
 		this.setorSuperior = setorSuperior;
 	}
-
 	public Set<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
-
 	public void setFuncionarios(Set<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-
 	public Long getVersion() {
 		return version;
 	}
-
 	public void setVersion(Long version) {
 		this.version = version;
 	}
+	
+	
 
 }

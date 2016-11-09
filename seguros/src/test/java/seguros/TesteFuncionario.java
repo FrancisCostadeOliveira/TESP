@@ -19,7 +19,7 @@ public class TesteFuncionario {
 	@Test 
 	public void testeComparacaoFuncionario(){
 		
-		// teste
+		
 		Funcionario o = new Funcionario (1L,"Joao", "M", "11111111111", null, null, null, null, null, null);
 		Funcionario o2 = new Funcionario (1L, "Joao", "M", "11111111111", null, null, null, null, null, null);
 		Assert.assertTrue(o.equals(o2));
